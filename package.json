@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Keith Silcock",
-  "license": "ISC", 
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "https://github.com/KeithSilcock/firebase-chat-app.git"
@@ -19,6 +19,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
+    "react-router-dom": "^4.2.2",
     "redux": "^3.7.2"
   },
   "devDependencies": {
