@@ -1,15 +1,15 @@
 import types from '../actions/types';
 
 const DEFAULT_STATE = {
-    log:{},
+    message: '',
 };
 
 
 export default (state=DEFAULT_STATE, action) => {
     switch(action.type){
-
-        case types.UPDATE_CHAT_LOG:
-            return {...state, log: action.payload};
+        case types.UPDATE_INPUT:
+            const {name, value} = action.payload;
+            return {...state, [name]:value};
 
         default:
             return state;
