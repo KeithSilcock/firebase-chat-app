@@ -6,8 +6,10 @@ class MessageInput extends React.Component{
     sendMessage(e){
         e.preventDefault();
 
-        sendMessageToDatabase(this.props.message);
-        this.props.clearInput('message');
+        const {message, roomId, clearInput} = this.props;
+
+        sendMessageToDatabase(message, roomId);
+        clearInput('message');
     }
     callUpdateInfo(e){
         const {name, value} = e.target;

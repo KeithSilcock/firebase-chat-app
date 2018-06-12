@@ -7,7 +7,8 @@ import {updateChat} from '../actions'
 class Chat extends React.Component{
 
     componentDidMount(){
-        db.ref('/chat-log').on('value', (snapshot) => {
+        const chatRoomId = this.props.match.params.id;
+        db.ref(`/chat-rooms/${chatRoomId}`).on('value', (snapshot) => {
             // console.log('chat data: ', snapshot.val());
             this.props.updateChat(snapshot.val());
         });
@@ -16,7 +17,7 @@ class Chat extends React.Component{
     render() {
         console.log('chat log: ', this.props.chatLog);
 
-        const {chatLog} = this.props;
+        const {chatLog, roomName, match: {params}} = this.props;
 
         const chatElements = Object.keys(chatLog).map( (key, index) => {
             const {name, message} = chatLog[key];
@@ -27,14 +28,14 @@ class Chat extends React.Component{
 
         return (
             <div className='center'>
-                <h1>A chapt room</h1>
+                <h1>{`Welcome to: ${roomName}!` || 'A chapt room'}</h1>
                 <h4>You're now in a gross chatroom. Please be disrespectful</h4>
                 <div className="chatSpace">
                     <ul className="collection">
                         {chatElements}
                     </ul>
                 </div>
-                <MessageInput />
+                <MessageInput roomId={params.id}/>
             </div>
         )
     }
@@ -42,7 +43,8 @@ class Chat extends React.Component{
 
 function mapStateToProps(state){
     return {
-        chatLog: state.chat.log
+        chatLog: state.chat.log,
+        roomName: state.chat.name,
     }
 }
 
