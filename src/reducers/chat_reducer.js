@@ -9,7 +9,7 @@ export default (state=DEFAULT_STATE, action) => {
     switch(action.type){
 
         case types.UPDATE_CHAT_LOG:
-            return {...state, log: action.payload};
+            return {...state, log: action.chatLog, name: action.name};
 
         default:
             return state;

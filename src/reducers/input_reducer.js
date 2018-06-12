@@ -11,7 +11,6 @@ export default (state=DEFAULT_STATE, action) => {
             const {name, value} = action.payload;
             return {...state, [name]:value};
         case types.CLEAR_INPUT:
-            debugger
             return {...state, [action.payload]:''};
 
         default:
