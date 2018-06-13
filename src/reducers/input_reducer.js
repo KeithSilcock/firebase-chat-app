@@ -10,6 +10,8 @@ export default (state=DEFAULT_STATE, action) => {
         case types.UPDATE_INPUT:
             const {name, value} = action.payload;
             return {...state, [name]:value};
+        case types.CLEAR_INPUT:
+            return {...state, [action.payload]:''};
 
         default:
             return state;

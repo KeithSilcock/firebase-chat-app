@@ -1,13 +1,15 @@
 import React from "react";
 import {connect} from "react-redux";
-import {updateInput, sendMessageToDatabase} from "../actions";
+import {updateInput, sendMessageToDatabase, clearInput} from "../actions";
 
 class MessageInput extends React.Component{
     sendMessage(e){
         e.preventDefault();
 
-        sendMessageToDatabase(this.props.message);
+        const {message, roomId, clearInput} = this.props;
 
+        sendMessageToDatabase(message, roomId);
+        clearInput('message');
     }
     callUpdateInfo(e){
         const {name, value} = e.target;
@@ -38,4 +40,4 @@ function mapStateToProps(state){
     return {message: state.input.message};
 }
 
-export default connect(mapStateToProps, {updateInput, sendMessageToDatabase})(MessageInput);
+export default connect(mapStateToProps, {updateInput, sendMessageToDatabase, clearInput})(MessageInput);
