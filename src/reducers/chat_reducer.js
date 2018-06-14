@@ -17,6 +17,9 @@ export default (state = DEFAULT_STATE, action) => {
     case types.SET_ROOM:
       return { ...state, name: action.payload };
 
+    case types.CLEAR_CHAT_DATA:
+      return { log: {}, name: "", rooms: {} };
+
     default:
       return state;
   }
