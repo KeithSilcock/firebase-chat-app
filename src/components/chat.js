@@ -2,7 +2,7 @@ import React from "react";
 import db from "../firebase";
 import MessageInput from "./message_input";
 import { connect } from "react-redux";
-import { updateChat, setRoom } from "../actions";
+import { updateChat, setRoom, clearChatData } from "../actions";
 
 class Chat extends React.Component {
   componentDidMount() {
@@ -21,14 +21,19 @@ class Chat extends React.Component {
         });
     }
 
-    db.ref(`/chat-logs/${chatRoomId}`).on("value", snapshot => {
-      console.log("chat data: ", snapshot.val());
+    this.dbRef = db.ref(`/chat-logs/${chatRoomId}`);
+
+    this.dbRef.on("value", snapshot => {
       this.props.updateChat(snapshot.val());
     });
   }
 
+  componentWillUnmount() {
+    this.dbRef.off();
+    this.props.clearChatData();
+  }
+
   render() {
-    console.log("chat log: ", this.props.chatLog);
     const {
       chatLog,
       roomName,
@@ -66,5 +71,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { updateChat, setRoom }
+  { updateChat, setRoom, clearChatData }
 )(Chat);

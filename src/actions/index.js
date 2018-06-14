@@ -69,3 +69,9 @@ export function setRoom(name) {
     payload: name
   };
 }
+
+export function clearChatData() {
+  return {
+    type: types.CLEAR_CHAT_DATA
+  };
+}

@@ -4,5 +4,6 @@ export default {
   SEND_MESSAGE: "send_message",
   CLEAR_INPUT: "clear_input",
   UPDATE_ROOMS: "update_rooms",
-  SET_ROOM: "set_room"
+  SET_ROOM: "set_room",
+  CLEAR_CHAT_DATA: "clear_chat_data"
 };
