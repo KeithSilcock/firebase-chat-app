@@ -5,7 +5,9 @@ import { connect } from "react-redux";
 
 class ChatRooms extends React.Component {
   componentDidMount() {
-    db.ref("/chat-rooms").on("value", snapshot => {
+    this.dbRef = db.ref("/chat-rooms");
+
+    this.dbRef.on("value", snapshot => {
       this.props.updateRooms(snapshot.val());
     });
   }
@@ -14,6 +16,9 @@ class ChatRooms extends React.Component {
     this.props.setRoom(room.name);
 
     this.props.history.push(`/chat/${room.chatId}`);
+  }
+  componentWillUnmount() {
+    this.dbRef.off();
   }
 
   render() {
