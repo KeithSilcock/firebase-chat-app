@@ -1,5 +1,5 @@
 import React from "react";
-import db from "../firebase";
+import { db } from "../firebase";
 import { updateRooms, setRoom } from "../actions";
 import { connect } from "react-redux";
 

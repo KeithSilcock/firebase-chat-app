@@ -6,6 +6,7 @@ import Home from "./home";
 import Chat from "./chat";
 import CreateChatRoom from "./create_chat_room";
 import ChatRooms from "./chat_rooms";
+import SignUp from "./signup";
 
 const App = () => (
   <div>
@@ -15,6 +16,7 @@ const App = () => (
       <Route path="/chat/:id" component={Chat} />
       <Route path="/create-room" component={CreateChatRoom} />
       <Route path="/chat-rooms" component={ChatRooms} />
+      <Route path="/sign-up" component={SignUp} />
     </div>
   </div>
 );
