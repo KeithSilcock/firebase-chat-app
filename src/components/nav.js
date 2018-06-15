@@ -24,6 +24,9 @@ export default props => {
           <li>
             <Link to="/create-room">Create Chat Room</Link>
           </li>
+          <li>
+            <Link to="/sign-up">Sign Up</Link>
+          </li>
         </ul>
       </div>
     </nav>
