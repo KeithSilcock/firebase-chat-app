@@ -4,14 +4,16 @@ import { db, auth } from "../firebase";
 export function createAccount(userData) {
   return async dispatch => {
     try {
-      const newUser = auth.createUserWithEmailAndPassword(
+      await auth.createUserWithEmailAndPassword(
         userData.email,
         userData.password
       );
 
-      // TODO Add username to user, update redux state with user info
+      const user = auth.currentUser;
 
-      console.log("New User:", newUser);
+      await user.updateProfile({
+        displayName: userData.username
+      });
     } catch (err) {
       console.log("Create Account Error:", err.message);
     }
@@ -35,9 +37,9 @@ export function updateInput(name, value) {
   };
 }
 
-export function sendMessageToDatabase(message, roomId) {
+export function sendMessageToDatabase(message, roomId, username) {
   db.ref(`/chat-logs/${roomId}`).push({
-    name: "karth",
+    name: username,
     message
   });
   return {
@@ -49,6 +51,19 @@ export function clearInput(name) {
   return {
     type: types.CLEAR_INPUT,
     payload: name
+  };
+}
+
+export function clearManyInputs(names) {
+  const toClear = {};
+
+  names.map(name => {
+    toClear[name] = "";
+  });
+
+  return {
+    type: types.CLEAR_MANY_INPUTS,
+    payload: toClear
   };
 }
 
@@ -90,5 +105,42 @@ export function setRoom(name) {
 export function clearChatData() {
   return {
     type: types.CLEAR_CHAT_DATA
+  };
+}
+
+export function signInAction(user) {
+  return {
+    type: types.SIGN_IN,
+    email: user.email,
+    username: user.displayName
+  };
+}
+
+export function signOutAction() {
+  return {
+    type: types.SIGN_OUT
+  };
+}
+
+export function signInUser({ email, password }) {
+  return async dispatch => {
+    try {
+      auth.signInWithEmailAndPassword(email, password);
+      console.log("signed in successfully");
+    } catch (err) {
+      console.log("Error signing in: ", err.message);
+      //TODO dispatch error UI/UX
+    }
+  };
+}
+
+export function signOutUser() {
+  return async dispatch => {
+    try {
+      await auth.signOut();
+      console.log("user signed out");
+    } catch (err) {
+      console.log("error signing out: ", err.message);
+    }
   };
 }
